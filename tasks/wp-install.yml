@@ -1,0 +1,23 @@
+ - name: "Download wordpress"
+      get_url:
+        url: https://wordpress.org/latest.zip
+        dest: /tmp/wp.zip
+    - name: "Unzip wordpress"
+      unarchive:
+        src: /tmp/wp.zip
+        dest: /var/www/
+        remote_src: yes
+    - name: "Create db"
+      mysql_db:
+        name: hellodb
+        state: present
+    - name: "Put Apache configuration in the place"
+       file:
+       src: templates/blog.conf
+       dest: /etc/httpd/conf.d/blog.conf
+      - name: "copy wordpress config"
+       copy:
+       src: templates/wp-config.php
+       dest: "{{wordpress_path}}/wp-config.php"
+       
+       

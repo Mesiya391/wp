@@ -1,0 +1,11 @@
+  tasks:
+     -name: "cos z template"
+     template: 
+    - name: "Create helloWorld file"
+      file:
+        path: ~/HelloWorld
+        state: touch
+    - name: "Install packages"
+      yum:
+        name: "{{packages}}"
+        state: latest
